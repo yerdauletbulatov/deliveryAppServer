@@ -1,0 +1,73 @@
+﻿@model Web.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Вход";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center" style="margin-top: 100px; margin-bottom: 50px">
+    <div class="col-4">
+        <div class="card border-0 image-box">
+            <img class="start-image" src="/files/work/start.png" alt="phone">
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card text-center" style="align-items: center; padding-top: 20px; padding-bottom: 20px">
+            <div asp-validation-summary="All"></div>
+            <form asp-action="Login" asp-controller="Account" asp-antiforgery="true"
+                  asp-route-returnUrl="@Model.ReturnUrl">
+                <div>
+                    <div class="form-group">
+                        <input class="myInput" asp-for="Login" type="text" placeholder="Логин, имя или почта">
+                        <br>
+                        <span asp-validation-for="Login"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-box">
+                            <input class="myInput" id="password" asp-for="Password" type="password" placeholder="Пароль">
+                            <a href="#" class="password-control" id="password-control"></a>
+                            <br>
+                          <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RememberMe"></label>
+                        <input asp-for="RememberMe">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Войти" class="btn btn-primary btn btn-block">
+                    </div>
+                </div>
+            </form>
+            <p style="color: red">@ViewBag.Error</p>
+            <p>У вас ещё нет аккаунта?</p>
+            <a class="font-weight-bold" asp-action="Register" asp-controller="Account">Зарегистрироваться</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
+    <script>
+        
+        $("a[id=password-control]").on("click", function() {
+            if ($("#password").attr("type") == "password") 
+            {
+                $(this).addClass("view");
+                $("#password").attr("type", "text");
+            } 
+            else 
+            {
+                $(this).removeClass("view");
+                $('#password').attr("type", "password");
+            }
+            return false;
+        });
+        
+    </script>
+}
+

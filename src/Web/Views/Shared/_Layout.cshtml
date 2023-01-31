@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Admin page</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <div>
+                        <a asp-area="" asp-controller="Web" asp-action="Index"><img src="/files/work/logo.png" style="width: 50px; height: 50px" alt="logo"></a>
+                    </div>
+                        <div>
+                            <form method="post" asp-action="Logout" asp-controller="Account">
+                                <input type="submit" class="btn btn-primary" value="Выйти с аккаунта">
+                            </form>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <div style="margin-right: 1rem">
+                        <button class="btn btn-success btn-sm"><a class="nav-link text-light " asp-controller="Account" asp-action="Login">Войти</a></button>
+                    </div>
+                        <div>
+                            <button class="btn btn-primary btn-sm"><a class="nav-link text-light" asp-controller="Account" asp-action="Register">Регистрация</a></button>
+                        </div>
+                    </div>
+                }
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
